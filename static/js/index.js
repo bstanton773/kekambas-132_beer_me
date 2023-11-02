@@ -4,7 +4,8 @@ pageLoader();
 // Function to load the page and set event listeners
 function pageLoader(){
     console.log('Loading the page with functionality...')
-    // Get the color buttons
+
+    // Get the color buttons to change background
     const colorButtons = document.getElementsByClassName('light-dark-button');
     for (let btn of colorButtons){
         btn.addEventListener('click', changeBackgroundColor)
@@ -19,6 +20,13 @@ function pageLoader(){
     // Add the brew finder when the form submits
     const findBrewsForm = document.querySelector('#find-brews-form');
     findBrewsForm.addEventListener('submit', e => findBreweries(e, 1));
+
+    // Add drag and drop for the beer and coaster
+    let coasterDrop = document.getElementById('droppable');
+    coasterDrop.addEventListener('dragover', allowDrop);
+    coasterDrop.addEventListener('drop', handleDrop);
+    let draggableBeer = document.getElementById('draggable');
+    draggableBeer.addEventListener('dragstart', dragBeer);
 }
 
 
@@ -139,4 +147,27 @@ function clearTable(table){
     for (let btn of buttonsToClear){
         btn.remove()
     }
+}
+
+
+// Function to allow drop events by stopping the default behavior for dragging
+function allowDrop(e){
+    // console.log('Allowing drop on:', e.target);
+    e.preventDefault();
+}
+
+
+// Function to get the Beer ID when the drag starts
+function dragBeer(e){
+    console.log('Dragging beer...');
+    e.dataTransfer.setData('text', e.target.id);
+}
+
+// Function to handle the drop
+function handleDrop(e){
+    console.log('Dropping beer');
+    const beerID = e.dataTransfer.getData('text');
+    console.log(beerID);
+    const beer = document.getElementById(beerID);
+    e.target.append(beer);
 }
