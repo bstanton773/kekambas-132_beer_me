@@ -9,6 +9,12 @@ function pageLoader(){
     for (let btn of colorButtons){
         btn.addEventListener('click', changeBackgroundColor)
     }
+
+    // Get the nav links and add the changeView event listener
+    const navLinks = document.getElementsByClassName('nav-link');
+    for (let link of navLinks){
+        link.addEventListener('click', changeView)
+    }
 }
 
 
@@ -21,4 +27,18 @@ function changeBackgroundColor(e){
     } else {
         document.body.style.backgroundColor = '#FFF897'
     }
+}
+
+
+// Create a function to make this a Single Page App (SPA) by swapping visible divs
+function changeView(e){
+    // Turn off the element(s) that are visible
+    const toTurnOff = document.getElementsByClassName('is-visible');
+    for (let element of toTurnOff){
+        element.classList.replace('is-visible', 'is-invisible');
+    }
+    // Turn on the element based on the link we clicked
+    let idToTurnOn = e.target.name;
+    const toTurnOn = document.getElementById(idToTurnOn);
+    toTurnOn.classList.replace('is-invisible', 'is-visible')
 }
