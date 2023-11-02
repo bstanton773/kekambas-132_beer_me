@@ -36,9 +36,12 @@ function changeView(e){
     const toTurnOff = document.getElementsByClassName('is-visible');
     for (let element of toTurnOff){
         element.classList.replace('is-visible', 'is-invisible');
+        let navLink = document.getElementsByName(element.id)[0];
+        navLink.classList.remove('active');
     }
     // Turn on the element based on the link we clicked
     let idToTurnOn = e.target.name;
     const toTurnOn = document.getElementById(idToTurnOn);
-    toTurnOn.classList.replace('is-invisible', 'is-visible')
+    toTurnOn.classList.replace('is-invisible', 'is-visible');
+    e.target.classList.add('active');
 }
