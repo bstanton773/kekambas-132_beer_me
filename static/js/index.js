@@ -27,6 +27,15 @@ function pageLoader(){
     coasterDrop.addEventListener('drop', handleDrop);
     let draggableBeer = document.getElementById('draggable');
     draggableBeer.addEventListener('dragstart', dragBeer);
+
+    // Add click listeners to the Bubbles to show event propogation
+    const bubbles = document.getElementsByClassName('bubble');
+    bubbles[0].addEventListener('click', e => console.log("You clicked outer... propogated from:", e.target.id));
+    bubbles[1].addEventListener('click', e => {
+        console.log("You clicked middle... propogated from:", e.target.id);
+        // e.stopPropagation(); // This will stop the event from also calling the outer event
+    });
+    bubbles[2].addEventListener('click', e => console.log("You clicked inner... propogated from:", e.target.id));
 }
 
 
